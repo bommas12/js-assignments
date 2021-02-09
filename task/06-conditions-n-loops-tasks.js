@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**************************************************************************************************
  *                                                                                                *
@@ -7,7 +7,6 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration              *
  *                                                                                                *
  **************************************************************************************************/
-
 
 /**
  * Returns the 'Fizz','Buzz' or an original number using the following rules:
@@ -30,11 +29,8 @@
  *
  */
 function getFizzBuzz(num) {
-    return Array.apply(null, new Array(num)).map((_, i) => {
-        return (++i % 3 ? '' : 'Fizz') + (i % 5 ? '' : 'Buzz') || i;
-    });
+  return (num % 3 ? "" : "Fizz") + (num % 5 ? "" : "Buzz") || num;
 }
-
 
 /**
  * Returns the factorial of the specified integer n.
@@ -48,13 +44,12 @@ function getFizzBuzz(num) {
  *   10 => 3628800
  */
 function getFactorial(n) {
-    let fact = 1;
-    while (n) {
-        fact = fact * n--;
-    }
-    return fact;
+  let fact = 1;
+  while (n) {
+    fact = fact * n--;
+  }
+  return fact;
 }
-
 
 /**
  * Returns the sum of integer numbers between n1 and n2 (inclusive).
@@ -69,13 +64,13 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-    let i = n1, sum = 0;
-    while (i <= n2) {
-        sum += i++;
-    }
-    return sum;
+  let i = n1,
+    sum = 0;
+  while (i <= n2) {
+    sum += i++;
+  }
+  return sum;
 }
-
 
 /**
  * Returns true, if a triangle can be built with the specified sides a,b,c and false in any other ways.
@@ -92,30 +87,29 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a, b, c) {
-    throw new Error('Not implemented');
+  return a + b > c && a + c > b && b + c > a;
 }
-
 
 /**
  * Returns true, if two specified axis-aligned rectangles overlap, otherwise false.
- * Each rectangle representing by object 
+ * Each rectangle representing by object
  *  {
  *     top: 5,
  *     left: 5,
  *     width: 20,
  *     height: 10
  *  }
- * 
+ *
  *  (5;5)
- *     -------------  
- *     |           | 
+ *     -------------
+ *     |           |
  *     |           |  height = 10
- *     ------------- 
- *        width=20    
- * 
+ *     -------------
+ *        width=20
+ *
  * NOTE: Please use canvas coordinate space (https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes#The_grid),
  * it differs from Cartesian coordinate system.
- * 
+ *
  * @param {object} rect1
  * @param {object} rect2
  * @return {bool}
@@ -123,33 +117,32 @@ function isTriangle(a, b, c) {
  * @example:
  *   { top: 0, left: 0, width: 10, height: 10 },
  *   { top: 5, left: 5, width: 20, height: 20 }    =>  true
- * 
+ *
  *   { top: 0, left: 0, width: 10, height: 10 },
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
- *  
+ *
  */
 function doRectanglesOverlap(rect1, rect2) {
-    throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }
-
 
 /**
  * Returns true, if point lies inside the circle, otherwise false.
- * Circle is an object of 
+ * Circle is an object of
  *  {
  *     center: {
- *       x: 5,       
+ *       x: 5,
  *       y: 5
- *     },        
+ *     },
  *     radius: 20
  *  }
- * 
- * Point is object of 
+ *
+ * Point is object of
  *  {
  *     x: 5,
  *     y: 5
  *  }
- * 
+ *
  * @param {object} circle
  * @param {object} point
  * @return {bool}
@@ -157,12 +150,14 @@ function doRectanglesOverlap(rect1, rect2) {
  * @example:
  *   { center: { x:0, y:0 }, radius:10 },  { x:0, y:0 }     => true
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
- *   
+ *
  */
 function isInsideCircle(circle, point) {
-    throw new Error('Not implemented');
+  const square = (num) => Math.pow(num, 2);
+  const { center } = circle;
+  const distance = square(center.x - point.x) + square(center.y - point.y);
+  return distance < square(circle.radius);
 }
-
 
 /**
  * Returns the first non repeated char in the specified strings otherwise returns null.
@@ -176,9 +171,15 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+  const map = new Map();
+  let i = 0;
+  while (i < str.length) {
+    map.set(str[i], map.get(str[i++]) + 1 || 1);
+  }
+  return [...map.entries()].filter(({ 1: v }) => v === 1)[0]
+    ? [...map.entries()].filter(({ 1: v }) => v === 1)[0][0]
+    : null;
 }
-
 
 /**
  * Returns the string representation of math interval, specified by two points and include / exclude flags.
@@ -202,9 +203,8 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-    throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }
-
 
 /**
  * Reverse the specified string (put all chars in reverse order)
@@ -219,9 +219,12 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    throw new Error('Not implemented');
+  let newString = "";
+  for (let i = str.length - 1; i >= 0; i--) {
+    newString += str.charAt(i);
+  }
+  return newString;
 }
-
 
 /**
  * Reverse the specified integer number (put all digits in reverse order)
@@ -236,9 +239,13 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    throw new Error('Not implemented');
+  let reverse = 0;
+  while (num) {
+    reverse = reverse * 10 + (num % 10);
+    num = Math.floor(num / 10);
+  }
+  return reverse;
 }
-
 
 /**
  * Validates the CCN (credit card number) and return true if CCN is valid
@@ -261,9 +268,20 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
+  function sumOfDigits(num) {
+    return (num % 10) + Math.floor(num / 10);
+  }
+  const arr = ccn.toString().split("");
+  const checkDigit = +arr.splice(arr.length - 1, 1);
+  const sum = arr.reverse().reduce((prev, cur, index) => {
+    let toAdd =
+      (index + 1) % 2 ? (cur * 2 > 9 ? sumOfDigits(cur * 2) : cur * 2) : cur;
+    prev += Number(toAdd);
+    return prev;
+  }, 0);
+  const mul9 = sum * 9;
+  return mul9 % 10 == checkDigit;
 }
-
 
 /**
  * Returns the digital root of integer:
@@ -280,9 +298,16 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
-    throw new Error('Not implemented');
+  let sum = 0;
+  while (num > 0) {
+    sum += num % 10;
+    num = Math.floor(num / 10);
+  }
+  if (sum > 9) {
+    return getDigitalRoot(sum);
+  }
+  return sum;
 }
-
 
 /**
  * Returns true if the specified string has the balanced brackets and false otherwise.
@@ -303,12 +328,11 @@ function getDigitalRoot(num) {
  *   '[[][][[]]]' => true
  *   '[[][]][' => false
  *   '{)' = false
- *   '{[(<{[]}>)]}' = true 
+ *   '{[(<{[]}>)]}' = true
  */
 function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }
-
 
 /**
  * Returns the human readable string of time period specified by the start and end time.
@@ -342,9 +366,8 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }
-
 
 /**
  * Returns the string with n-ary (binary, ternary, etc, where n<=10) representation of specified number.
@@ -366,9 +389,8 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }
-
 
 /**
  * Returns the commom directory path for specified array of full filenames.
@@ -383,9 +405,8 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }
-
 
 /**
  * Returns the product of two specified matrixes.
@@ -406,9 +427,8 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }
-
 
 /**
  * Returns the evaluation of the specified tic-tac-toe position.
@@ -441,27 +461,26 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }
 
-
 module.exports = {
-    getFizzBuzz: getFizzBuzz,
-    getFactorial: getFactorial,
-    getSumBetweenNumbers: getSumBetweenNumbers,
-    isTriangle: isTriangle,
-    doRectanglesOverlap: doRectanglesOverlap,
-    isInsideCircle: isInsideCircle,
-    findFirstSingleChar: findFirstSingleChar,
-    getIntervalString: getIntervalString,
-    reverseString: reverseString,
-    reverseInteger: reverseInteger,
-    isCreditCardNumber: isCreditCardNumber,
-    getDigitalRoot: getDigitalRoot,
-    isBracketsBalanced: isBracketsBalanced,
-    timespanToHumanString: timespanToHumanString,
-    toNaryString: toNaryString,
-    getCommonDirectoryPath: getCommonDirectoryPath,
-    getMatrixProduct: getMatrixProduct,
-    evaluateTicTacToePosition: evaluateTicTacToePosition
+  getFizzBuzz: getFizzBuzz,
+  getFactorial: getFactorial,
+  getSumBetweenNumbers: getSumBetweenNumbers,
+  isTriangle: isTriangle,
+  doRectanglesOverlap: doRectanglesOverlap,
+  isInsideCircle: isInsideCircle,
+  findFirstSingleChar: findFirstSingleChar,
+  getIntervalString: getIntervalString,
+  reverseString: reverseString,
+  reverseInteger: reverseInteger,
+  isCreditCardNumber: isCreditCardNumber,
+  getDigitalRoot: getDigitalRoot,
+  isBracketsBalanced: isBracketsBalanced,
+  timespanToHumanString: timespanToHumanString,
+  toNaryString: toNaryString,
+  getCommonDirectoryPath: getCommonDirectoryPath,
+  getMatrixProduct: getMatrixProduct,
+  evaluateTicTacToePosition: evaluateTicTacToePosition,
 };
