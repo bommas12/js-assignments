@@ -414,7 +414,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-  throw new Error("Not implemented");
+  return num.toString(n);
 }
 
 /**
@@ -430,7 +430,19 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-  throw new Error("Not implemented");
+  let k = pathes[0].length;
+  for (let i = 1; i < pathes.length; i++) {
+    k = Math.min(k, pathes[i].length);
+    for (let j = 0; j < k; j++) {
+      if (pathes[i][j] != pathes[0][j]) {
+        k = j;
+        break;
+      }
+    }
+  }
+  let result = pathes[0].substring(0, k).split("/");
+  result.splice(-1, 1);
+  return result.length > 0 ? result.join("/") + "/" : "";
 }
 
 /**
@@ -453,9 +465,9 @@ function getCommonDirectoryPath(pathes) {
  */
 function getMatrixProduct(m1, m2) {
   // throw new Error("Not implemented");
-  let x = m1.length,
-    z = m1[0].length,
-    y = m2[0].length;
+  let x = m1.length;
+  let z = m1[0].length;
+  let y = m2[0].length;
   if (m2.length !== z) {
     throw new Error(`number of columns in the first matrix should be
       the same as the number of rows in the second`);
@@ -506,7 +518,71 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-  throw new Error("Not implemented");
+  let result = true;
+  for (let j = 0; j < 3; j++) {
+    result = result && position[j][j] == "X";
+  }
+  if (result) {
+    return "X";
+  }
+  result = true;
+  for (let j = 0; j < 3; j++) {
+    result = result && position[2 - j][j] == "X";
+  }
+  if (result) {
+    return "X";
+  }
+  result = true;
+  for (let j = 0; j < 3; j++) {
+    result = result && position[j][j] == "0";
+  }
+  if (result) {
+    return "0";
+  }
+  result = true;
+  for (let j = 0; j < 3; j++) {
+    result = result && position[2 - j][j] == "0";
+  }
+  if (result) {
+    return "0";
+  }
+  for (let k = 0; k < 3; k++) {
+    result = true;
+    for (let j = 0; j < 3; j++) {
+      //lines
+      result = result && position[k][j] == "X";
+    }
+    if (result) {
+      return "X";
+    }
+    result = true;
+    for (let j = 0; j < 3; j++) {
+      //colums
+      result = result && position[j][k] == "X";
+    }
+    if (result) {
+      return "X";
+    }
+  }
+  for (let k = 0; k < 3; k++) {
+    result = true;
+    for (let j = 0; j < 3; j++) {
+      //lines
+      result = result && position[k][j] == "0";
+    }
+    if (result) {
+      return "0";
+    }
+    result = true;
+    for (let j = 0; j < 3; j++) {
+      //colums
+      result = result && position[j][k] == "0";
+    }
+    if (result) {
+      return "0";
+    }
+  }
+  return undefined;
 }
 
 module.exports = {

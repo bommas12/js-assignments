@@ -32,7 +32,24 @@
  *
  */
 function* get99BottlesOfBeer() {
-  throw new Error("Not implemented");
+  let count = 99;
+  while (count > 0) {
+    yield count +
+      " " +
+      (count == 1 ? "bottle" : "bottles") +
+      " of beer on the wall, " +
+      count +
+      " " +
+      (count == 1 ? "bottle" : "bottles") +
+      " of beer.";
+    yield "Take one down and pass it around, " +
+      (--count === 0 ? "no more" : count) +
+      " " +
+      (count == 1 ? "bottle" : "bottles") +
+      " of beer on the wall.";
+  }
+  yield "No more bottles of beer on the wall, no more bottles of beer.";
+  yield "Go to the store and buy some more, 99 bottles of beer on the wall.";
 }
 
 /**
@@ -45,7 +62,16 @@ function* get99BottlesOfBeer() {
  *
  */
 function* getFibonacciSequence() {
-  throw new Error("Not implemented");
+  yield 0;
+  yield 1;
+  let prev = 1;
+  let prev1 = 0;
+  while (true) {
+    let temp = prev1;
+    prev1 = prev;
+    prev = prev + temp;
+    yield prev;
+  }
 }
 
 /**
@@ -79,7 +105,14 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-  throw new Error("Not implemented");
+  // yield root;
+  // for (let i = 0; i < root.children.length; i++) {
+  //   if (root.children[i] !== undefined) {
+  //     yield call(depthTraversalTree, root.children[i]);
+  //   } else {
+  //     yield root.children[i];
+  //   }
+  // }
 }
 
 /**
@@ -104,7 +137,14 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-  throw new Error("Not implemented");
+  // let collections = [root];
+  // while (collections.length) {
+  //   let node = collections.shift();
+  //   yield node;
+  //   if (node.children !== undefined) {
+  //     collections.push(...node.children);
+  //   }
+  // }
 }
 
 /**
@@ -121,7 +161,24 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-  throw new Error("Not implemented");
+  // const source = [...source1, ...source2];
+  // source.sort();
+  // console.log(source);
+  const s1 = source1();
+  const s2 = source2();
+  while (true) {
+    const { value: v1 } = s1.next();
+    const { value: v2 } = s2.next();
+    console.log(v1, v2);
+
+    if (v1 < v2) {
+      yield v1;
+      yield v2;
+    } else {
+      yield v2;
+      yield v1;
+    }
+  }
 }
 
 module.exports = {

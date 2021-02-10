@@ -624,7 +624,13 @@ function getElementByIndexes(arr, indexes) {
  *
  */
 function swapHeadAndTail(arr) {
-  throw new Error("Not implemented");
+  const midPoint1 = Math.round((arr.length - 1) / 2);
+  const midPoint2 = Math.round(arr.length / 2);
+  //for odd length both are gonna be same
+  const head = arr.slice(0, midPoint1);
+  const tail = arr.slice(midPoint2);
+  const center = arr.slice(midPoint1, midPoint2);
+  return [].concat(tail, center, head);
 }
 
 module.exports = {
