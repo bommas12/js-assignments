@@ -203,7 +203,10 @@ function findFirstSingleChar(str) {
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-  throw new Error("Not implemented");
+  const left = isStartIncluded ? "[" : "(";
+  const right = isEndIncluded ? "]" : ")";
+  const str = a < b ? `${a}, ${b}` : `${b}, ${a}`;
+  return `${left}${str}${right}`;
 }
 
 /**
@@ -331,7 +334,29 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true
  */
 function isBracketsBalanced(str) {
-  throw new Error("Not implemented");
+  const map = new Map();
+  map.set("[", "]");
+  map.set("{", "}");
+  map.set("<", ">");
+  map.set("(", ")");
+  let boolean = true;
+  const arr = str.split("");
+  const stack = [];
+  while (arr.length !== 0) {
+    const removedEle = arr.shift();
+    if ([...map.keys()].includes(removedEle)) {
+      stack.push(removedEle);
+    } else {
+      let poppedEle = stack.pop();
+      if (removedEle != map.get(poppedEle)) {
+        boolean = false;
+      }
+    }
+  }
+  if (stack.length !== 0) {
+    boolean = false;
+  }
+  return boolean;
 }
 
 /**
@@ -427,7 +452,27 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-  throw new Error("Not implemented");
+  // throw new Error("Not implemented");
+  let x = m1.length,
+    z = m1[0].length,
+    y = m2[0].length;
+  if (m2.length !== z) {
+    throw new Error(`number of columns in the first matrix should be
+      the same as the number of rows in the second`);
+  }
+  let productRow = new Array(y).fill(0);
+  let product = new Array(x);
+  for (let p = 0; p < x; p++) {
+    product[p] = productRow.slice();
+  }
+  for (let i = 0; i < x; i++) {
+    for (let j = 0; j < y; j++) {
+      for (let k = 0; k < z; k++) {
+        product[i][j] += m1[i][k] * m2[k][j];
+      }
+    }
+  }
+  return product;
 }
 
 /**

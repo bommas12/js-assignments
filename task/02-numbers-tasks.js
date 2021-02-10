@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /********************************************************************************************
  *                                                                                          *
@@ -8,7 +8,6 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math    *
  *                                                                                          *
  ********************************************************************************************/
-
 
 /**
  * Returns an area of a rectangle given by width and heigth.
@@ -22,9 +21,8 @@
  *   5, 5  => 25
  */
 function getRectangleArea(width, height) {
-    return width * height;
+  return width * height;
 }
-
 
 /**
  * Returns a circumference of circle given by radius.
@@ -38,7 +36,7 @@ function getRectangleArea(width, height) {
  *   0    => 0
  */
 function getCicleCircumference(radius) {
-    return 2 * Math.PI * radius;
+  return 2 * Math.PI * radius;
 }
 
 /**
@@ -54,7 +52,7 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-    return value1 / 2 + value2 / 2;
+  return value1 / 2 + value2 / 2;
 }
 
 /**
@@ -73,9 +71,9 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-    const xDis = (x1 - x2) * (x1 - x2);
-    const yDis = (y1 - y2) * (y1 - y2);
-    return Math.sqrt(xDis + yDis);
+  const xDis = (x1 - x2) * (x1 - x2);
+  const yDis = (y1 - y2) * (y1 - y2);
+  return Math.sqrt(xDis + yDis);
 }
 
 /**
@@ -91,9 +89,8 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-    return (-b / a);
+  return -b / a;
 }
-
 
 /**
  * Returns an angle (in radians) between two vectors given by xi and yi, coordinates in Cartesian plane
@@ -113,12 +110,14 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-    const dAy = y2 - 0;
-    const dBy = y1 - 0;
-    const dAx = x2 - 0;
-    const dBx = x1 - 0;
-    const angleRadians = Math.abs(Math.atan2(dAx * dBy - dAy * dBx, dAx * dBx + dAy * dBy));
-    return angleRadians;
+  const dAy = y2 - 0;
+  const dBy = y1 - 0;
+  const dAx = x2 - 0;
+  const dBx = x1 - 0;
+  const angleRadians = Math.abs(
+    Math.atan2(dAx * dBy - dAy * dBx, dAx * dBx + dAy * dBy)
+  );
+  return angleRadians;
 }
 
 /**
@@ -134,9 +133,8 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-    return value.toString().split('').pop();
+  return value.toString().split("").pop();
 }
-
 
 /**
  * Returns a number by given string representation.
@@ -150,7 +148,7 @@ function getLastDigit(value) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
-    return Number(value);
+  return Number(value);
 }
 
 /**
@@ -167,8 +165,8 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelipidedDiagonal(a, b, c) {
-    const square = (num) => Math.pow(num, 2);
-    return Math.sqrt(square(a) + square(b) + square(c));
+  const square = (num) => Math.pow(num, 2);
+  return Math.sqrt(square(a) + square(b) + square(c));
 }
 
 /**
@@ -177,7 +175,7 @@ function getParallelipidedDiagonal(a, b, c) {
  * @param {number} num
  * @param {number} pow
  * @return {number}
- *  
+ *
  * @example:
  *   1234, 0  => 1234
  *   1234, 1  => 1230
@@ -189,13 +187,13 @@ function getParallelipidedDiagonal(a, b, c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-    let temp = num;
-    let i = 0;
-    while (i < pow) {
-        const rnd = Math.pow(10, ++i)
-        temp = Math.round(temp / rnd) * rnd;
-    }
-    return temp;
+  let temp = num;
+  let i = 0;
+  while (i < pow) {
+    const rnd = Math.pow(10, ++i);
+    temp = Math.round(temp / rnd) * rnd;
+  }
+  return temp;
 }
 
 /**
@@ -204,7 +202,7 @@ function roundToPowerOfTen(num, pow) {
  *
  * @param {number} n
  * @return {bool}
- * 
+ *
  * @example:
  *   4 => false
  *   5 => true
@@ -216,15 +214,16 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-    let i = 2, primeFlag = true;
-    while (i <= Math.sqrt(n)) {
-        if (n % i === 0) {
-            primeFlag = false;
-            break;
-        }
-        i++;
+  let i = 2,
+    primeFlag = true;
+  while (i <= Math.sqrt(n)) {
+    if (n % i === 0) {
+      primeFlag = false;
+      break;
     }
-    return primeFlag;
+    i++;
+  }
+  return primeFlag;
 }
 
 /**
@@ -243,24 +242,24 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    let result = Number(value);
-    if (!isNaN(result)) {
-        return result;
-    }
-    return def;
+  let result = Number(value);
+  if (!isNaN(result)) {
+    return result;
+  }
+  return def;
 }
 
 module.exports = {
-    getRectangleArea: getRectangleArea,
-    getCicleCircumference: getCicleCircumference,
-    getAverage: getAverage,
-    getDistanceBetweenPoints: getDistanceBetweenPoints,
-    getLinearEquationRoot: getLinearEquationRoot,
-    getAngleBetweenVectors: getAngleBetweenVectors,
-    getLastDigit: getLastDigit,
-    parseNumberFromString: parseNumberFromString,
-    getParallelipidedDiagonal: getParallelipidedDiagonal,
-    roundToPowerOfTen: roundToPowerOfTen,
-    isPrime: isPrime,
-    toNumber: toNumber
+  getRectangleArea: getRectangleArea,
+  getCicleCircumference: getCicleCircumference,
+  getAverage: getAverage,
+  getDistanceBetweenPoints: getDistanceBetweenPoints,
+  getLinearEquationRoot: getLinearEquationRoot,
+  getAngleBetweenVectors: getAngleBetweenVectors,
+  getLastDigit: getLastDigit,
+  parseNumberFromString: parseNumberFromString,
+  getParallelipidedDiagonal: getParallelipidedDiagonal,
+  roundToPowerOfTen: roundToPowerOfTen,
+  isPrime: isPrime,
+  toNumber: toNumber,
 };
