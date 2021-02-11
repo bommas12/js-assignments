@@ -30,10 +30,12 @@
  * @return {RegExp}
  */
 function getRegexForGuid() {
-  return /{[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}}/i;
-  // return /{[0-9A-F]{8}-[0-9A-F]{4}-[1-5][0-9A-F]{3}-[89ab][0-9A-F]{3}-[0-9A-F]{12}}/;
+  const guid = "[\\da-fA-F]";
+  return new RegExp(
+    `^\\{${guid}{8}-${guid}{4}-${guid}{4}-${guid}{4}-${guid}{12}\\}$`,
+    "i"
+  );
 }
-
 /**
  * Returns the regexp that matches all the strings from first column
  * but of them from the second
@@ -70,7 +72,8 @@ function getRegexForPitSpot() {
  * @return {RegExp}
  */
 function getRegexForIPv4() {
-  return /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+  const ip = "(25[0-5]|2[0-4]\\d|[01]?\\d{1,2})";
+  return new RegExp(`^${ip}\\.${ip}\\.${ip}\\.${ip}$`);
 }
 
 /**
@@ -88,7 +91,8 @@ function getRegexForIPv4() {
  * @return {RegExp}
  */
 function getRegexForSSN() {
-  return /^(?!(000|666|9))\d{3}-(?!00)\d{2}-(?!0000)\d{4}$/;
+  const ssn = "(?=0*[1-9]+0*)\\d";
+  return new RegExp(`${ssn}{3}-${ssn}{2}-${ssn}{4}`);
 }
 
 /**

@@ -64,13 +64,13 @@ function* get99BottlesOfBeer() {
 function* getFibonacciSequence() {
   yield 0;
   yield 1;
-  let prev = 1;
-  let prev1 = 0;
+  let cur = 1;
+  let prev = 0;
   while (true) {
-    let temp = prev1;
-    prev1 = prev;
-    prev = prev + temp;
-    yield prev;
+    let temp = prev;
+    prev = cur;
+    cur = cur + temp;
+    yield cur;
   }
 }
 
@@ -105,14 +105,13 @@ function* getFibonacciSequence() {
  *
  */
 function* depthTraversalTree(root) {
-  // yield root;
-  // for (let i = 0; i < root.children.length; i++) {
-  //   if (root.children[i] !== undefined) {
-  //     yield call(depthTraversalTree, root.children[i]);
-  //   } else {
-  //     yield root.children[i];
-  //   }
-  // }
+  const stack = [root];
+  while (stack.length > 0) {
+    root = stack.pop();
+    yield root;
+    if (typeof root.children !== "undefined")
+      for (let value of root.children.reverse()) stack.push(value);
+  }
 }
 
 /**
@@ -137,14 +136,13 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-  // let collections = [root];
-  // while (collections.length) {
-  //   let node = collections.shift();
-  //   yield node;
-  //   if (node.children !== undefined) {
-  //     collections.push(...node.children);
-  //   }
-  // }
+  const queue = [root];
+  while (queue.length > 0) {
+    root = queue.shift();
+    yield root;
+    if (typeof root.children !== "undefined")
+      for (let value of root.children) queue.push(value);
+  }
 }
 
 /**
@@ -161,24 +159,18 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-  // const source = [...source1, ...source2];
-  // source.sort();
-  // console.log(source);
-  const s1 = source1();
-  const s2 = source2();
-  while (true) {
-    const { value: v1 } = s1.next();
-    const { value: v2 } = s2.next();
-    console.log(v1, v2);
-
-    if (v1 < v2) {
-      yield v1;
-      yield v2;
-    } else {
-      yield v2;
-      yield v1;
-    }
-  }
+  let src1 = source1(),
+    src2 = source2(),
+    val1 = src1.next().value,
+    val2 = src2.next().value;
+  while (true)
+    if ((val1 < val2 || val2 === undefined) && val1 !== undefined) {
+      yield val1;
+      val1 = src1.next().value;
+    } else if (val2 !== undefined) {
+      yield val2;
+      val2 = src2.next().value;
+    } else break;
 }
 
 module.exports = {

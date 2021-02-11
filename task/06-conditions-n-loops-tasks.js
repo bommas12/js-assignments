@@ -123,7 +123,12 @@ function isTriangle(a, b, c) {
  *
  */
 function doRectanglesOverlap(rect1, rect2) {
-  throw new Error("Not implemented");
+  return !(
+    rect1.top > rect2.top + rect2.height ||
+    rect1.left > rect2.left + rect2.width ||
+    rect1.top + rect1.height < rect2.top ||
+    rect1.left + rect1.width < rect2.left
+  );
 }
 
 /**
@@ -171,14 +176,17 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-  const map = new Map();
   let i = 0;
   while (i < str.length) {
-    map.set(str[i], map.get(str[i++]) + 1 || 1);
+    if (
+      str.indexOf(str.charAt(i)) === i &&
+      str.lastIndexOf(str.charAt(i)) === i
+    ) {
+      return str.charAt(i);
+    }
+    i++;
   }
-  return [...map.entries()].filter(({ 1: v }) => v === 1)[0]
-    ? [...map.entries()].filter(({ 1: v }) => v === 1)[0][0]
-    : null;
+  return null;
 }
 
 /**
@@ -391,7 +399,22 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-  throw new Error("Not implemented");
+  let diff = endDate.getTime() - startDate.getTime(),
+    s = 1000, // second
+    m = s * 60, // minute
+    h = m * 60, // hour
+    d = h * 24; // day
+  if (diff <= 45 * s) return "a few seconds ago";
+  if (diff <= 90 * s) return "a minute ago";
+  if (diff <= 45 * m) return `${Math.round((diff - 1) / m)} minutes ago`;
+  if (diff <= 90 * m) return "an hour ago";
+  if (diff <= 22 * h) return `${Math.round((diff - 1) / h)} hours ago`;
+  if (diff <= 36 * h) return "a day ago";
+  if (diff <= 25 * d) return `${Math.round((diff - 1) / d)} days ago`;
+  if (diff <= 45 * d) return "a month ago";
+  if (diff <= 345 * d) return `${Math.round(diff / 30 / d)} months ago`;
+  if (diff <= 545 * d) return "a year ago";
+  return `${Math.round(diff / 365 / d)} years ago`;
 }
 
 /**
@@ -464,22 +487,16 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-  // throw new Error("Not implemented");
-  let x = m1.length;
-  let z = m1[0].length;
-  let y = m2[0].length;
-  if (m2.length !== z) {
+  if (m2.length !== m1[0].length) {
     throw new Error(`number of columns in the first matrix should be
       the same as the number of rows in the second`);
   }
-  let productRow = new Array(y).fill(0);
-  let product = new Array(x);
-  for (let p = 0; p < x; p++) {
-    product[p] = productRow.slice();
-  }
-  for (let i = 0; i < x; i++) {
-    for (let j = 0; j < y; j++) {
-      for (let k = 0; k < z; k++) {
+  let product = [];
+  for (let i = 0; i < m1.length; i++) {
+    product[i] = [];
+    for (let j = 0; j < m2[i].length; j++) {
+      product[i][j] = 0;
+      for (let k = 0; k < m1[i].length; k++) {
         product[i][j] += m1[i][k] * m2[k][j];
       }
     }

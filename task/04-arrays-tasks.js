@@ -296,7 +296,7 @@ function propagateItemsByPositionIndex(arr) {
  */
 function get3TopItems(arr) {
   arr.sort((a, b) => b - a);
-  return arr.length <= 3 ? arr : arr.slice(0, 3);
+  return arr.slice(0, 3);
 }
 
 /**
@@ -540,32 +540,14 @@ function distinct(arr) {
  */
 function group(array, keySelector, valueSelector) {
   const map = new Map();
-  //   return array.reduce((prev, cur) => {
-  //     const key = keySelector(cur);
-  //     const value = valueSelector(cur);
-  //     let prevVal = prev.get(key);
-  //     let newVal;
-  //     if (prevVal) {
-  //       newVal = [...prevVal, value];
-  //     } else {
-  //       newVal = [];
-  //     }
-  //     prev.set(key, newVal);
-  //     return prev;
-  //   }, map);
-  array.map((cur) => {
+  return array.reduce((prev, cur) => {
     const key = keySelector(cur);
     const value = valueSelector(cur);
-    let prevVal = map.get(key);
-    let newVal = [];
-    if (prevVal) {
-      newVal = [...prevVal, value];
-    } else {
-      newVal = [value];
-    }
-    map.set(key, newVal);
-  });
-  return map;
+    let prevVal = prev.get(key) || [];
+    let newVal = [...prevVal, value];
+    prev.set(key, newVal);
+    return prev;
+  }, map);
 }
 
 /**
