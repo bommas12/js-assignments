@@ -298,61 +298,16 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-  const cards = [
-    "A♣",
-    "2♣",
-    "3♣",
-    "4♣",
-    "5♣",
-    "6♣",
-    "7♣",
-    "8♣",
-    "9♣",
-    "10♣",
-    "J♣",
-    "Q♣",
-    "K♣",
-    "A♦",
-    "2♦",
-    "3♦",
-    "4♦",
-    "5♦",
-    "6♦",
-    "7♦",
-    "8♦",
-    "9♦",
-    "10♦",
-    "J♦",
-    "Q♦",
-    "K♦",
-    "A♥",
-    "2♥",
-    "3♥",
-    "4♥",
-    "5♥",
-    "6♥",
-    "7♥",
-    "8♥",
-    "9♥",
-    "10♥",
-    "J♥",
-    "Q♥",
-    "K♥",
-    "A♠",
-    "2♠",
-    "3♠",
-    "4♠",
-    "5♠",
-    "6♠",
-    "7♠",
-    "8♠",
-    "9♠",
-    "10♠",
-    "J♠",
-    "Q♠",
-    "K♠",
-  ];
-  return cards.findIndex((card) => card === value);
+  const cards = "A,2,3,4,5,6,7,8,9,10,J,Q,K";
+  const cardSymbols = '♣,♦,♥,♠';
+
+  const cardSymbol = value.substr(value.length - 1, 1);//extracting symbolpart
+  const card = value.substring(0, value.indexOf(cardSymbol));//extracting numberpart
+
+  const cardPos = cards.split(',').indexOf(card);//cardPos
+  const symPos = cardSymbols.split(',').indexOf(cardSymbol);//cardSymbol Position
+
+  return symPos * 13 + cardPos;
 }
 
 module.exports = {

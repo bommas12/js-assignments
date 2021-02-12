@@ -64,10 +64,9 @@ function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 function getSumBetweenNumbers(n1, n2) {
-  let i = n1,
-    sum = 0;
-  while (i <= n2) {
-    sum += i++;
+  let sum = 0;
+  while (n1 <= n2) {
+    sum += n1++;
   }
   return sum;
 }
@@ -342,29 +341,30 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true
  */
 function isBracketsBalanced(str) {
-  const map = new Map();
-  map.set("[", "]");
-  map.set("{", "}");
-  map.set("<", ">");
-  map.set("(", ")");
-  let boolean = true;
+  const brackets = new Map();
+  brackets.set("[", "]");
+  brackets.set("{", "}");
+  brackets.set("<", ">");
+  brackets.set("(", ")");
+  let isBalanced = true;
   const arr = str.split("");
   const stack = [];
   while (arr.length !== 0) {
     const removedEle = arr.shift();
-    if ([...map.keys()].includes(removedEle)) {
+    const leftBrackets = [...brackets.keys()];
+    if (leftBrackets.includes(removedEle)) {
       stack.push(removedEle);
     } else {
       let poppedEle = stack.pop();
-      if (removedEle != map.get(poppedEle)) {
-        boolean = false;
+      if (removedEle != brackets.get(poppedEle)) {
+        isBalanced = false;
       }
     }
   }
   if (stack.length !== 0) {
-    boolean = false;
+    isBalanced = false;
   }
-  return boolean;
+  return isBalanced;
 }
 
 /**

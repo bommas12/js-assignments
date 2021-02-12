@@ -133,7 +133,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-  return value.toString().split("").pop();
+  return value % 10;
 }
 
 /**
@@ -187,13 +187,8 @@ function getParallelipidedDiagonal(a, b, c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-  let temp = num;
-  let i = 0;
-  while (i < pow) {
-    const rnd = Math.pow(10, ++i);
-    temp = Math.round(temp / rnd) * rnd;
-  }
-  return temp;
+  const roundTo = Math.pow(10, pow)
+  return Math.round(num / roundTo) * roundTo;
 }
 
 /**
@@ -214,6 +209,9 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
+  if (n <= 1) {
+    return false;
+  }
   let i = 2,
     primeFlag = true;
   while (i <= Math.sqrt(n)) {
