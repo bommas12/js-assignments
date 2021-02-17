@@ -535,68 +535,39 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-  let result = true;
-  for (let j = 0; j < 3; j++) {
-    result = result && position[j][j] == "X";
-  }
-  if (result) {
-    return "X";
-  }
-  result = true;
-  for (let j = 0; j < 3; j++) {
-    result = result && position[2 - j][j] == "X";
-  }
-  if (result) {
-    return "X";
-  }
-  result = true;
-  for (let j = 0; j < 3; j++) {
-    result = result && position[j][j] == "0";
-  }
-  if (result) {
-    return "0";
-  }
-  result = true;
-  for (let j = 0; j < 3; j++) {
-    result = result && position[2 - j][j] == "0";
-  }
-  if (result) {
-    return "0";
-  }
-  for (let k = 0; k < 3; k++) {
-    result = true;
-    for (let j = 0; j < 3; j++) {
-      //lines
-      result = result && position[k][j] == "X";
-    }
-    if (result) {
-      return "X";
-    }
-    result = true;
-    for (let j = 0; j < 3; j++) {
-      //colums
-      result = result && position[j][k] == "X";
-    }
-    if (result) {
-      return "X";
+  const isEveryCharSame = (input) => input.split('').every(char => char === input[0]);
+
+  const winPositions = {
+    rows: {
+      1: [[0, 0], [0, 1], [0, 2]],
+      2: [[1, 0], [1, 1], [1, 2]],
+      3: [[2, 0], [2, 1], [2, 2]]
+    },
+    columns: {
+      1: [[0, 0], [1, 0], [2, 0]],
+      2: [[0, 1], [1, 1], [2, 1]],
+      3: [[0, 2], [1, 2], [2, 2]]
+    },
+    diagonals: {
+      1: [[0, 0], [1, 1], [2, 2]],
+      2: [[0, 2], [1, 1], [2, 0]]
     }
   }
-  for (let k = 0; k < 3; k++) {
-    result = true;
-    for (let j = 0; j < 3; j++) {
-      //lines
-      result = result && position[k][j] == "0";
-    }
-    if (result) {
-      return "0";
-    }
-    result = true;
-    for (let j = 0; j < 3; j++) {
-      //colums
-      result = result && position[j][k] == "0";
-    }
-    if (result) {
-      return "0";
+  let winPositionEle = [];
+  for (let i of Object.keys(winPositions)) {
+    let winPosEle = Object.values(winPositions[i]).reduce((arr, cur) => {
+      const stringinPos = cur.reduce((str, pos) => {
+        str += position[pos[0]][pos[1]]
+        return str;
+      }, "")
+      arr.push(stringinPos);
+      return arr;
+    }, [])
+    winPositionEle.push(...winPosEle);
+  }
+  for (let str of winPositionEle) {
+    if (isEveryCharSame(str)) {//checking for if every character is same
+      return str[0];
     }
   }
   return undefined;
