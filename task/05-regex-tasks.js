@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /********************************************************************************************
  *                                                                                          *
@@ -6,7 +6,6 @@
  * https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions           *
  *                                                                                          *
  ********************************************************************************************/
-
 
 /**
  * Returns the regexp that matches a GUID string representation
@@ -31,10 +30,12 @@
  * @return {RegExp}
  */
 function getRegexForGuid() {
-   throw new Error('Not implemented');
+  const guid = "[\\da-fA-F]";
+  return new RegExp(
+    `^\\{${guid}{8}-${guid}{4}-${guid}{4}-${guid}{4}-${guid}{12}\\}$`,
+    "i"
+  );
 }
-
-
 /**
  * Returns the regexp that matches all the strings from first column
  * but of them from the second
@@ -53,9 +54,8 @@ function getRegexForGuid() {
  *
  */
 function getRegexForPitSpot() {
-   throw new Error('Not implemented');
+  return /^.*p.t.*$/;
 }
-
 
 /**
  * Returns the regexp that matches all IPv4 strings in
@@ -72,9 +72,9 @@ function getRegexForPitSpot() {
  * @return {RegExp}
  */
 function getRegexForIPv4() {
-   throw new Error('Not implemented');
+  const ip = "(25[0-5]|2[0-4]\\d|[01]?\\d{1,2})";
+  return new RegExp(`^${ip}\\.${ip}\\.${ip}\\.${ip}$`);
 }
-
 
 /**
  * Returns the regexp that matches all SSN (Social Security Number) codes in
@@ -91,9 +91,9 @@ function getRegexForIPv4() {
  * @return {RegExp}
  */
 function getRegexForSSN() {
-   throw new Error('Not implemented');
+  const ssn = "(?=0*[1-9]+0*)\\d";
+  return new RegExp(`${ssn}{3}-${ssn}{2}-${ssn}{4}`);
 }
-
 
 /**
  * Returns the password validator regex.
@@ -116,14 +116,15 @@ function getRegexForSSN() {
  *   'Pa55'.match(validator) => false
  */
 function getPasswordValidator(minLength) {
-   throw new Error('Not implemented');
+  return new RegExp(
+    `^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])[a-zA-Z0-9]{${minLength},}$`
+  );
 }
 
-
 module.exports = {
-    getRegexForGuid: getRegexForGuid,
-    getRegexForPitSpot: getRegexForPitSpot,
-    getRegexForIPv4: getRegexForIPv4,
-    getRegexForSSN: getRegexForSSN,
-    getPasswordValidator: getPasswordValidator
+  getRegexForGuid: getRegexForGuid,
+  getRegexForPitSpot: getRegexForPitSpot,
+  getRegexForIPv4: getRegexForIPv4,
+  getRegexForSSN: getRegexForSSN,
+  getPasswordValidator: getPasswordValidator,
 };
