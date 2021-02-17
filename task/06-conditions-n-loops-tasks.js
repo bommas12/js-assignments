@@ -535,42 +535,70 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-  const isEveryCharSame = (input) => input.split('').every(char => char === input[0]);
-
   const winPositions = {
     rows: {
-      1: [[0, 0], [0, 1], [0, 2]],
-      2: [[1, 0], [1, 1], [1, 2]],
-      3: [[2, 0], [2, 1], [2, 2]]
+      1: [
+        [0, 0],
+        [0, 1],
+        [0, 2],
+      ],
+      2: [
+        [1, 0],
+        [1, 1],
+        [1, 2],
+      ],
+      3: [
+        [2, 0],
+        [2, 1],
+        [2, 2],
+      ],
     },
     columns: {
-      1: [[0, 0], [1, 0], [2, 0]],
-      2: [[0, 1], [1, 1], [2, 1]],
-      3: [[0, 2], [1, 2], [2, 2]]
+      1: [
+        [0, 0],
+        [1, 0],
+        [2, 0],
+      ],
+      2: [
+        [0, 1],
+        [1, 1],
+        [2, 1],
+      ],
+      3: [
+        [0, 2],
+        [1, 2],
+        [2, 2],
+      ],
     },
     diagonals: {
-      1: [[0, 0], [1, 1], [2, 2]],
-      2: [[0, 2], [1, 1], [2, 0]]
-    }
-  }
-  let winPositionEle = [];
+      1: [
+        [0, 0],
+        [1, 1],
+        [2, 2],
+      ],
+      2: [
+        [0, 2],
+        [1, 1],
+        [2, 0],
+      ],
+    },
+  };
   for (let i of Object.keys(winPositions)) {
-    let winPosEle = Object.values(winPositions[i]).reduce((arr, cur) => {
-      const stringinPos = cur.reduce((str, pos) => {
-        str += position[pos[0]][pos[1]]
-        return str;
-      }, "")
-      arr.push(stringinPos);
-      return arr;
-    }, [])
-    winPositionEle.push(...winPosEle);
-  }
-  for (let str of winPositionEle) {
-    if (isEveryCharSame(str)) {//checking for if every character is same
-      return str[0];
+    let winPosArrIndex = Object.values(winPositions[i]).findIndex((posarr) => {
+      const [startX, startY] = posarr[0];
+      return posarr.every((pos) => {
+        const [xPos, yPos] = pos;
+        return (
+          position[xPos][yPos] &&
+          position[xPos][yPos] === position[startX][startY]
+        );
+      });
+    });
+    if (winPosArrIndex > -1) {
+      const [x, y] = winPositions[i][winPosArrIndex + 1][0];
+      return position[x][y];
     }
   }
-  return undefined;
 }
 
 module.exports = {
